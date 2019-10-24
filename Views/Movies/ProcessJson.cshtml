@@ -1,0 +1,71 @@
+﻿@model APIProcessor.Models.Movie
+@{
+    ViewBag.Title = "ProcessJson";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<h2>Process JSON</h2>
+
+<form>
+    <div class="form-group">
+        <label>JSON</label><br />
+        <textarea id="jsonText" rows="4" cols="50"></textarea><br />
+        <button id="processJson" >Process</button>
+
+    </div>
+
+</form>
+
+@section scripts
+{
+    <script>
+            //[ { "Name": "Harry Potter II", "ReleaseDate": "2000-01-01T00:00:00", "DateAdded": "2019-10-21T00:00:00", "NumberInStock": "20" }]
+
+    $(document).ready(function () {
+
+
+        $("#processJson").on("click", function () {
+
+            let sendText = true;
+            let ob = { "Name": "Harry Potter II", "ReleaseDate": "2000-01-01T00:00:00", "DateAdded": "2019-10-21T00:00:00", "NumberInStock": "20" }
+            //text = $("#jsonText").val();
+            //text = typeof text !== "string"
+            //    ? json.stringify(text)
+            //    : text;
+
+            //alert("debug1:" + text);
+            //try {
+            //    text = json.parse(text);
+            //}
+            //catch (e) {
+            //    sendText = false;
+            //}
+            //alert("debug2:" + text);
+            //if (typeof text === "object" && text !== null) {
+            //    sendText = true;
+            //}
+            alert("debug3:" + sendText);
+            if (sendText) {
+                $.ajax({
+
+                    method: "POST", url: "/api/movies",
+                    
+                    data: ob,
+                    accept: 'application/json',
+                    success: function () { console.log("Success"); }
+
+                });
+            }
+            else alert("Invalid JSON")
+
+            return false; //This is for the page to not refresh
+        });
+        
+
+    });
+
+
+    </script>
+    }

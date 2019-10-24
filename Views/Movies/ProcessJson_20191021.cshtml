@@ -1,0 +1,35 @@
+﻿@model APIProcessor.Models.Movie
+@{
+    ViewBag.Title = "ProcessJson";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    //{ "Name": "Fight Club", "ReleaseDate": "2000-01-01T00:00:00", "DateAdded": "2019-10-21T00:00:00", "NumberInStock": "5" },       
+    var sample = {};
+    sample.postData = function () {
+        let text = $("#jsonText").val();
+        alert("alert: " + text);
+        $.ajax({
+
+            type: "POST", url: "/api/movies",
+            success: function (data) { alert('data: ' + data); },
+            data: { "Name": "Kill Bill", "ReleaseDate": "2000-01-01T00:00:00", "DateAdded": "2019-10-21T00:00:00", "NumberInStock": "10" },    
+            accept: 'application/json'
+            
+});
+};
+
+</script>
+<h2>Process JSON</h2>
+
+<form>
+    <div class="form-group">
+        <label>JSON</label><br />
+        <textarea id="jsonText" rows="4" cols="50"></textarea><br />
+        <button onclick='sample.postData();'>Process</button>
+
+    </div>
+
+</form>
